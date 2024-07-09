@@ -37,8 +37,7 @@ def test_nan(input_tensor: torch.Tensor) -> bool:
 
 
 def mask_nan_by_number(x: numpy.ma.core.MaskedArray,
-                       mask_number: float = 1e-8
-                       ) -> numpy.ndarray:
+                       mask_number: float = 1e-8) -> numpy.ndarray:
 
     # Mask the array by the MASK
     masked_array: numpy.ma.core.MaskedArray = numpy.ma.masked_invalid(x)

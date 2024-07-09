@@ -17,8 +17,8 @@ class FeatureBatchNormalization(torch.nn.Module):
         self.graph_width: int = graph_width
 
         # ========================== Normalization of different Layers ==========================
-        # Normalization for reflecting rate for all lights
-        # Use 2D for both latitude and longitude
+        # Normalization for reflecting rate for all features
+        # Use 2D for both height and width
         self.feature_normalization = torch.nn.BatchNorm2d(
             num_features=feature_layer_number,
             eps=1e-05,  # Default
@@ -33,7 +33,7 @@ class FeatureBatchNormalization(torch.nn.Module):
         normalized_tensor: torch.Tensor = self.feature_normalization(input_tensor)
 
         # reflecting to
-        normalized_tensor_latitude: torch.Tensor = torch.nn.functional.normalize(input=normalized_tensor,
+        normalized_tensor_height: torch.Tensor = torch.nn.functional.normalize(input=normalized_tensor,
                                                                                  p=2,
                                                                                  dim=-2)
         normalized_tensor_all: torch.Tensor = torch.nn.functional.normalize(input=normalized_tensor,
@@ -61,8 +61,8 @@ class FullFeatureNormalization(torch.nn.Module):
         self.graph_width: int = graph_width
 
         # ========================== Normalization of different Layers ==========================
-        # Normalization for reflecting rate for all lights
-        # Use 2D for both latitude and longitude
+        # Normalization for reflecting rate for all features
+        # Use 2D for both height and width
         self.feature_normalization = torch.nn.BatchNorm2d(
             num_features=total_layer_number,
             eps=1e-05,  # Default

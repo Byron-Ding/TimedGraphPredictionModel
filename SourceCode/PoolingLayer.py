@@ -6,21 +6,21 @@ class PoolingLayer(torch.nn.Module):
     def __init__(self,
                  batch_size: int,
                  feature_number: int,
-                 graph_height: int,
-                 graph_width: int,
+                 height_number: int,
+                 width_number: int,
                  device: torch.device,
                  dtype: torch.dtype
                  ) -> None:
         super(PoolingLayer, self).__init__()
         self.batch_size: int = batch_size
         self.feature_number: int = feature_number
-        self.graph_height: int = graph_height
-        self.graph_width: int = graph_width
+        self.height_number: int = height_number
+        self.width_number: int = width_number
 
         self.device: torch.device = device
         self.dtype: torch.dtype = dtype
 
-        self.pooling_divide: Final[int] = 8
+        self.pooling_divide: Final[int] = 12
 
         # ================================== Pooling Layer ==================================
         # 不pooling 太大了，数据太多了
@@ -33,13 +33,13 @@ class PoolingLayer(torch.nn.Module):
                                                   stride=(2, 2),
                                                   padding=0)
 
-        self.pooling_layer_3 = torch.nn.MaxPool2d(kernel_size=(2, 2),
-                                                  stride=(2, 2),
+        self.pooling_layer_3 = torch.nn.MaxPool2d(kernel_size=(3, 3),
+                                                  stride=(3, 3),
                                                   padding=0)
 
         # self.pooling_layer_4 = torch.nn.MaxPool2d(kernel_size=(2, 2),
-        #                                           stride=(2, 2),
-        #                                           padding=0)
+        #                                            stride=(2, 2),
+        #                                            padding=0)
 
         # self.pooling_layer_5 = torch.nn.MaxPool2d(kernel_size=(2, 2),
         #                                           stride=(2, 2),

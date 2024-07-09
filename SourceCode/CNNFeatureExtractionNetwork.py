@@ -56,10 +56,10 @@ class CNNFeatureExtractionNetwork(torch.nn.Module):
         self.layer_7x7_simulate_127x127: typing.Final[int] = 21
 
 
-        # [batch_size, input_dimension, H, W]
+        # [batch_size, input_dimension, graph_height, graph_width]
         # 2D Convolutional Neural Network 3x3
-        # @ChangeShape: [batch_size, input_dimension + 1, H, W]
-        # => [batch_size, input_dimension + 1, H, W]
+        # @ChangeShape: [batch_size, input_dimension + 1, graph_height, graph_width]
+        # => [batch_size, input_dimension + 1, graph_height, graph_width]
         self.convolutional_neural_network_3x3: torch.nn.Conv2d = torch.nn.Conv2d(
             in_channels=self.feature_number,
             out_channels=self.feature_number,
@@ -198,8 +198,8 @@ class CNNFeatureExtractionNetwork(torch.nn.Module):
     def forward(self,
                 input_tensor: torch.Tensor,
                 ) -> torch.Tensor:
-        # input_tensor: [batch_size, feature_number, H, W]
-        # output_tensor: [batch_size, feature_number, H, W, extracted_graph_feature]
+        # input_tensor: [batch_size, feature_number, graph_height, graph_width]
+        # output_tensor: [batch_size, feature_number, graph_height, graph_width, extracted_graph_feature]
         print("@Forward::CNNFeatureExtractionNetwork::Start Forward")
 
         # ================================== Feature Extraction ==================================
@@ -252,8 +252,8 @@ class CNNFeatureExtractionNetwork(torch.nn.Module):
         print("Finish Activation Function")
 
         # 最后拼接 所有的特征为新的维度
-        # @ChangeShape: [batch_size, feature_number, H, W]
-        # => [batch_size, feature_number, H, W, extracted_graph_feature]
+        # @ChangeShape: [batch_size, feature_number, graph_height, graph_width]
+        # => [batch_size, feature_number, graph_height, graph_width, extracted_graph_feature]
         output_tensor: torch.Tensor = torch.stack((
             activated_tensor_3x3,
             activated_tensor_5x5,

@@ -4,13 +4,13 @@ import torch
 class MatrixCompatabilityError(Exception):
     def __init__(self, message: str,
                  command: str,
-                 matrix_size_list_left: list[torch.Tensor],
-                 matrix_size_list_right: list[torch.Tensor]):
+                 matrix_size_list_left: list[torch.Size],
+                 matrix_size_list_right: list[torch.Size]):
         super().__init__(message)
         self.message = message
         self.command = command
-        self.matrix_list_left: list[torch.Tensor] = matrix_size_list_left
-        self.matrix_list_right: list[torch.Tensor] = matrix_size_list_right
+        self.matrix_list_left: list[torch.Size] = matrix_size_list_left
+        self.matrix_list_right: list[torch.Size] = matrix_size_list_right
 
     def __str__(self):
         output = "For the command: " + self.command + "\n" \

@@ -1,3 +1,5 @@
+import gc
+
 import torch
 
 
@@ -30,4 +32,8 @@ class FeedForward(torch.nn.Module):
         )
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
-        return self.feed_forward_layer(input_tensor)
+        output = self.feed_forward_layer(input_tensor)
+
+        gc.collect()
+        torch.cuda.empty_cache()
+        return output
